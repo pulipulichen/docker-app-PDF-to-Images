@@ -21,7 +21,7 @@ let main = async function () {
     }
 
 		let result
-		let cmd = `pdfimages "${file}" -png ./`
+		let cmd = `pdfimages "${file}" -png "${path.dirname(file)}"`
 		try {
 			result = await ShellExec(cmd)
 		}
