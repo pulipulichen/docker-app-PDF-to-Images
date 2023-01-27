@@ -22,6 +22,7 @@ let main = async function () {
 
 		let result
 		let cmd = `pdfimages "${file}" -png "${path.dirname(file)}"`
+		console.log(cmd)
 		try {
 			result = await ShellExec(cmd)
 		}
