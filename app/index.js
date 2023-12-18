@@ -1,11 +1,12 @@
 const ShellExec = require('./lib/ShellExec')
-const GetExistedArgv = require('./lib/GetExistedArgv')
+const GetFiles = require('./lib/GetFiles')
+const isColab = require('./lib/isColab')
 
 const path = require('path')
 const fs = require('fs')
 
 let main = async function () {
-  let files = GetExistedArgv()
+  let files = GetFiles()
 
   for (let i = 0; i < files.length; i++) {
     let file = files[i]
@@ -20,10 +21,10 @@ let main = async function () {
       filenameNoExt = filenameNoExt.slice(0, -4)
     }
 
-		fs.mkdirSync(`${path.dirname(file)}/${filenameNoExt}/`, {recursive: true})
+		fs.mkdirSync(`/output/${filenameNoExt}/`, {recursive: true})
 
 		let result
-		let cmd = `pdfimages "${file}" -png "${path.dirname(file)}/${filenameNoExt}/"`
+		let cmd = `pdfimages "${file}" -png "/output/${filenameNoExt}/"`
 		console.log(cmd)
 		try {
 			result = await ShellExec(cmd)
@@ -31,6 +32,17 @@ let main = async function () {
 		catch (e) {
 			console.error(e)
 		}
+
+    // ----------------------------------------------------------------
+
+    if (isColab) {
+      try {
+  			await ShellExec(`cd "/output/${filenameNoExt}/"; zip -r -j "../${filenameNoExt}.zip" ./*`)
+  		}
+  		catch (e) {
+  			console.error(e)
+  		}
+    }
   }
 }
 

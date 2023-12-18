@@ -7,5 +7,7 @@ RUN apt-get install -y \
 
 # COPY package.json /
 # RUN npm install
+RUN apt-get install -y \
+    zip
 
 CMD ["bash"]

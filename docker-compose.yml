@@ -3,7 +3,7 @@ services:
   app:
     build: .
     tty: true
-    command: node /app/pdfimages.js "/input/c4611 sample explain.pdf"
+    command: node /app/index.js "/input/c4611 sample explain.pdf"
     volumes: 
       - ./app:/app/
       - ./cache:/cache/
