@@ -1,5 +1,5 @@
 const { exec } = require("child_process")
-const sleep = require("./sleep.js")
+const sleep = require("./../lib/sleep.js")
 
 module.exports = async function (cmd, options = {}) {
   if (Array.isArray(cmd)) {
